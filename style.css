@@ -1,84 +1,393 @@
-body{
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    background-color: #e1f7ff;
-    background-color: white;
-}
-
-.container{
-    background-color: white;
-    background-image: url("img/bg.png");
-    background-size: cover;
-    width: 1100px;
-    height: 680px;
-    margin: auto;
-    border-radius: 20px;
-    margin-top: 50px;
-    font-family: 'Karla', sans-serif;
-    font-weight: 300;
+    background:
+        radial-gradient(circle at 15% 20%, #ffd6f6 0, transparent 25%),
+        radial-gradient(circle at 85% 15%, #bdefff 0, transparent 25%),
+        radial-gradient(circle at 80% 85%, #ffe7a3 0, transparent 25%),
+        linear-gradient(135deg, #c7f0ff, #f7d9ff);
+    background-size: 120% 120%;
+    font-family: "Karla", sans-serif;
     color: #34304a;
+    animation: backgroundMove 10s ease-in-out infinite alternate;
+}
+
+.container {
     position: relative;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
+    width: min(1100px, 90%);
+    min-height: 680px;
+    padding: 70px;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            120deg,
+            rgba(255, 255, 255, 0.96),
+            rgba(255, 255, 255, 0.78)
+        ),
+        url("img/bg.png") center / cover;
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    border-radius: 40px;
+    box-shadow:
+        0 25px 60px rgba(81, 72, 130, 0.25),
+        inset 0 0 30px rgba(255, 255, 255, 0.8);
+    animation: containerEnter 1s ease-out, containerFloat 5s ease-in-out 1s infinite;
 }
 
-.mypic{
+.container::before,
+.container::after {
+    content: "";
     position: absolute;
-    width: 300px;
-    top: 160px;
-    right: 160px; 
-    background-color: #81b2e4;
     border-radius: 50%;
-    padding: 10px;
+    z-index: 0;
 }
 
-.info{
+.container::before {
+    width: 250px;
+    height: 250px;
+    top: -100px;
+    left: -80px;
+    background: linear-gradient(135deg, #ff8ed8, #ffc85b);
+    opacity: 0.45;
+    animation: bubbleOne 7s ease-in-out infinite;
+}
+
+.container::after {
+    width: 320px;
+    height: 320px;
+    right: -120px;
+    bottom: -150px;
+    background: linear-gradient(135deg, #6ddcff, #9d7cff);
+    opacity: 0.4;
+    animation: bubbleTwo 8s ease-in-out infinite;
+}
+
+.info {
+    position: relative;
+    z-index: 2;
+    width: 50%;
+    padding: 20px;
     text-align: left;
-    padding: 30px;
-    width: 430px;
-    padding-left: 150px;
-    padding-top: 60px;
+    animation: infoEnter 1s ease-out 0.3s both;
 }
 
-h3{
-    padding-top: 30px;
-    font-size: 40px;
-    margin:0px;
-    font-weight: 300;
-
-}
-h2{
+h3 {
+    display: inline-block;
+    margin: 0 0 12px;
+    padding: 10px 18px;
+    font-size: 28px;
     font-weight: 500;
-    font-size: 60px;
-    margin: 0px;
-    padding: 0px;
+    color: white;
+    background: linear-gradient(90deg, #ff6eb4, #8c6cff);
+    background-size: 200%;
+    border-radius: 50px;
+    transform: rotate(-2deg);
+    box-shadow: 0 8px 20px rgba(140, 108, 255, 0.25);
+    animation: gradientMove 4s linear infinite, titleWiggle 4s ease-in-out infinite;
 }
 
-h4{
-    font-size: 20px;
-    margin-top:10px;
-    font-weight: 300;
-    margin-bottom: 10px;
-
+h2 {
+    margin: 10px 0;
+    font-size: clamp(42px, 5vw, 65px);
+    line-height: 1.05;
+    font-weight: 500;
+    color: #34304a;
+    text-shadow: 3px 3px 0 #d8f5ff;
+    animation: headingEnter 1s ease-out 0.5s both;
 }
-p{
-    padding-top: 0px;
+
+h4 {
+    margin: 20px 0 10px;
+    font-size: 21px;
+    font-weight: 500;
+    color: #7460d8;
+    animation: fadeUp 1s ease-out 0.7s both;
+}
+
+p {
+    margin: 0;
+    padding: 0;
     color: #636363;
-    line-height: 1.5;
+    font-size: 17px;
+    line-height: 1.7;
+    animation: fadeUp 1s ease-out 0.8s both;
 }
 
-.hobbies{
+.mypic {
+    position: absolute;
+    z-index: 2;
+    width: 310px;
+    height: 310px;
+    top: 175px;
+    right: 110px;
+    object-fit: cover;
+    border: 10px solid white;
+    border-radius: 45% 55% 48% 52%;
+    background: linear-gradient(135deg, #81b2e4, #ff9bd5);
+    box-shadow:
+        18px 18px 0 #81d7e4,
+        -14px -14px 0 #ffb8df,
+        0 25px 40px rgba(52, 48, 74, 0.25);
+    transition: transform 0.4s ease, border-radius 0.4s ease;
+    animation:
+        pictureEnter 1.2s ease-out 0.4s both,
+        pictureFloat 4s ease-in-out 1.6s infinite;
+}
+
+.mypic:hover {
+    transform: rotate(3deg) scale(1.06);
+    border-radius: 50%;
+}
+
+.hobbies {
     display: flex;
     align-items: center;
+    width: fit-content;
+    margin-bottom: 12px;
+    padding: 9px 16px;
     font-size: 16px;
-    color: dimgray;
-    vertical-align: middle;
-    margin-bottom: 10px;
+    color: #55516a;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #ebe6ff;
+    border-radius: 50px;
+    box-shadow: 0 5px 12px rgba(73, 65, 120, 0.08);
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+    animation: hobbyEnter 0.8s ease-out both;
 }
 
-
-.icon{
-    padding-left: 20px;
-    width: 30px;
+.hobbies:nth-of-type(1) {
+    animation-delay: 0.9s;
 }
 
+.hobbies:nth-of-type(2) {
+    animation-delay: 1.05s;
+}
 
+.hobbies:nth-of-type(3) {
+    animation-delay: 1.2s;
+}
+
+.hobbies:hover {
+    color: white;
+    background: linear-gradient(90deg, #ff78ba, #8c7aff);
+    transform: translateX(8px) rotate(-1deg) scale(1.04);
+    box-shadow: 0 10px 22px rgba(140, 108, 255, 0.25);
+}
+
+.icon {
+    width: 38px;
+    height: 38px;
+    margin-left: 12px;
+    padding: 6px;
+    object-fit: contain;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.4s ease;
+}
+
+.hobbies:hover .icon {
+    transform: rotate(360deg) scale(1.1);
+}
+
+@keyframes backgroundMove {
+    0% {
+        background-position: left top;
+    }
+
+    100% {
+        background-position: right bottom;
+    }
+}
+
+@keyframes containerEnter {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes containerFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes infoEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes headingEnter {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pictureEnter {
+    from {
+        opacity: 0;
+        transform: translateX(80px) rotate(10deg) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(0) scale(1);
+    }
+}
+
+@keyframes pictureFloat {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+
+    50% {
+        transform: translateY(-14px) rotate(1deg);
+    }
+}
+
+@keyframes hobbyEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 200%;
+    }
+}
+
+@keyframes titleWiggle {
+    0%,
+    100% {
+        transform: rotate(-2deg);
+    }
+
+    50% {
+        transform: rotate(1deg) scale(1.03);
+    }
+}
+
+@keyframes bubbleOne {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, 30px) scale(1.15);
+    }
+}
+
+@keyframes bubbleTwo {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-35px, -25px) scale(1.12);
+    }
+}
+
+@media (max-width: 850px) {
+    body {
+        padding: 30px 0;
+    }
+
+    .container {
+        min-height: auto;
+        padding: 40px 25px;
+        animation: containerEnter 1s ease-out;
+    }
+
+    .info {
+        width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 42px;
+    }
+
+    .mypic {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 230px;
+        height: 230px;
+        margin-bottom: 35px;
+    }
+
+    .hobbies {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
